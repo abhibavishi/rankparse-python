@@ -1,3 +1,5 @@
+__version__ = "0.1.0"
+
 from .client import RankParseClient
 from .async_client import AsyncRankParseClient
 from .errors import (
@@ -10,6 +12,7 @@ from .errors import (
 )
 
 __all__ = [
+    "__version__",
     "RankParseClient",
     "AsyncRankParseClient",
     "RankParseError",

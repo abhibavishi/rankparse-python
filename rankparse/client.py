@@ -6,7 +6,7 @@ from typing import Any, Optional
 class RankParseClient(BaseClient):
     def __init__(self, api_key: str, base_url: str = DEFAULT_BASE_URL, timeout: float = 30.0) -> None:
         super().__init__(api_key, base_url, timeout)
-        self._http = httpx.Client(base_url=self._base_url, headers=self._headers, timeout=self._timeout)
+        self._http = httpx.Client(base_url=self._base_url, headers=self._make_headers(), timeout=self._timeout)
 
     def close(self) -> None:
         self._http.close()

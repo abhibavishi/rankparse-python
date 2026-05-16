@@ -46,8 +46,7 @@ class BaseClient:
         else:
             raise APIError(message, code, status)
 
-    @property
-    def _headers(self) -> dict:
+    def _make_headers(self) -> dict:
         return {
             "X-API-Key": self._api_key,
             "Accept": "application/json",

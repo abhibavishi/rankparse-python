@@ -86,7 +86,19 @@ class TestParamSerialization:
             )
         )
         await async_client.domain_overlap(["a.com", "b.com"])
-        assert "domains=" in str(route.calls[0].request.url)
+        url_str = str(route.calls[0].request.url)
+        assert "domains=a.com%2Cb.com" in url_str or "domains=a.com,b.com" in url_str
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_link_intersect_two_params(self, async_client):
+        route = respx.get(f"{BASE_URL}/link-intersect").mock(
+            return_value=httpx.Response(200, json={"data": [], "credits_used": 5, "credits_remaining": 995})
+        )
+        await async_client.link_intersect("x.com", "y.com")
+        url_str = str(route.calls[0].request.url)
+        assert "domain_a=x.com" in url_str
+        assert "domain_b=y.com" in url_str
 
     @pytest.mark.asyncio
     @respx.mock
